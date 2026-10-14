@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de uso — Restagrup en Odoo</title>
+<style>
+  
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1a1a1a; font-size: 13px; line-height: 1.5; }
+  .titlepage { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; }
+  .titlepage h1 { font-size: 30px; font-weight: 600; text-align: center; margin: 0 0 6px; }
+  .titlepage h2 { font-size: 22px; font-weight: 500; text-align: center; margin: 0 0 24px; color: #333; }
+  .titlepage .meta { text-align: center; color: #777; font-size: 13px; margin-bottom: 30px; }
+  .titlepage hr { width: 260px; margin: 0 auto 30px; border: none; border-top: 1px solid #ccc; }
+  .titlepage p.intro { max-width: 470px; margin: 0 auto; color: #333; text-align: left; }
+  .part {  }
+  h2.part-title { color: #6b3fa0; font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  p.part-desc { color: #333; margin: 0 0 18px; }
+  .step {  margin-bottom: 24px; }
+  .step.long {  }
+  .step h3 { font-size: 15px; font-weight: 600; margin: 0 0 6px;  }
+  .step p { margin: 0 0 9px; color: #222; }
+  .step img { display: block; width: 100%; max-width: 680px; border: 1px solid #d8d8d8; border-radius: 3px; margin: 8px auto 0; }
+  h3.phase { color: #6b3fa0; font-size: 18px; margin: 0 0 12px;   }
+  h3.phase.first {  }
+  .where { color: #555; font-size: 12px; margin: -2px 0 8px; }
+  .where b { color: #6b3fa0; font-weight: 600; }
+  .note { background: #f4f0fa; border-left: 3px solid #6b3fa0; padding: 8px 12px; color: #444; font-size: 12.5px; margin-top: 8px; }
+  .dev { display: inline-block; background: #fff3d6; color: #8a5a00; border-radius: 3px; padding: 1px 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; vertical-align: middle; margin-left: 6px; }
+  ul, ol { margin: 0 0 8px; padding-left: 20px; } li { margin-bottom: 4px; }
+  code { background: #f0f0f0; padding: 1px 4px; border-radius: 2px; font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 12px; font-size: 12px; }
+  th, td { border: 1px solid #ddd; padding: 4px 7px; text-align: left; vertical-align: top; }
+  th { background: #f4f0fa; }
+  tr {  }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 16px; }
+  .flow span { background: #f4f0fa; border: 1px solid #d9cdea; border-radius: 4px; padding: 4px 9px; font-size: 12px; }
+  .case {  border: 1px solid #ddd; border-radius: 4px; padding: 10px 14px; margin-bottom: 14px; }
+  .case h3 { margin: 0 0 4px; font-size: 14px; color: #6b3fa0; }
+  .case p { margin: 0 0 6px; }
+
+body{display:flex;margin:0;font-size:15px}
+nav{position:sticky;top:0;align-self:flex-start;width:270px;height:100vh;overflow:auto;padding:16px;background:#faf8fd;border-right:1px solid #e3dcf0;flex:none}
+nav b{display:block;margin-bottom:10px;color:#6b3fa0}
+nav a{display:block;text-decoration:none;color:#333;padding:4px 6px;border-radius:3px;font-size:13px}
+nav a.sub{padding-left:20px;color:#555;font-size:12.5px} nav a:hover{background:#efe8f8}
+nav input{width:100%;padding:6px;margin-bottom:10px;border:1px solid #ccc;border-radius:3px}
+main{max-width:900px;padding:24px 32px;flex:1;min-width:0}
+.part{margin-top:48px} .titlepage{min-height:50vh}
+h2.part-title,h3.phase{scroll-margin-top:12px}
+.step img{max-width:100%}
+@media(max-width:800px){body{display:block}nav{position:static;width:auto;height:auto;max-height:40vh;border-right:0}main{padding:16px}}
+</style></head><body>
+<nav><b>Guía de uso</b><input id="q" placeholder="Buscar en la guía…" type="search"><a class="top" href="#s1">Cómo usar esta guía</a><a class="top" href="#s2">Parte A — Configuración inicial (administrador)</a><a class="top" href="#s3">Parte B — El día a día, fase por fase</a><a class="sub" href="#s4">1 · Entra la petición</a><a class="sub" href="#s5">2 · Buscar restaurantes</a><a class="sub" href="#s6">3 · Pedir presupuestos a los restaurantes</a><a class="sub" href="#s7">4 · Propuesta y presupuesto para la agencia</a><a class="sub" href="#s8">5 · Firma y expediente</a><a class="sub" href="#s9">6 · Cambios y cancelaciones</a><a class="sub" href="#s10">7 · Antes del servicio</a><a class="top" href="#s11">Parte C — Casos prácticos</a><a class="top" href="#s12">Parte D — Pantallas de control</a><a class="top" href="#s13">Parte E — Referencia</a></nav>
+<main>
+
+<div class="titlepage">
+  <h1>Guía de usuario</h1>
+  <h2>Restagrup en Odoo: de la petición del grupo al bono de servicio</h2>
+  <div class="meta">Módulo Restagrup (Odoo 19) · Octubre de 2026</div>
+  <hr>
+  <p class="intro">
+    Esta guía recoge <strong>todas las funciones</strong> del módulo y <strong>todas las formas de usarlas</strong>: cómo se configura, cómo se trabaja un
+    grupo fase por fase, qué hacer en cada situación (casos prácticos) y qué significa cada pantalla, estado y aviso. Las capturas son de un entorno
+    de pruebas con datos ficticios.
+  </p>
+</div>
+
+<div class="part">
+  <h2 id="s1" class="part-title">Cómo usar esta guía</h2>
+
+  <div class="step">
+    <h3>Qué contiene</h3>
+    <table>
+      <tr><th>Parte</th><th>Para quién</th><th>Qué encontrarás</th></tr>
+      <tr><td><strong>A · Configuración</strong></td><td>Administrador</td><td>Ajustes, correo, usuarios, listas, restaurantes y menús, baremos, cortafuegos y pagos. Se hace una vez.</td></tr>
+      <tr><td><strong>B · Día a día</strong></td><td>Comerciales</td><td>El trabajo de un grupo en 7 fases, con todas las pantallas y botones.</td></tr>
+      <tr><td><strong>C · Casos prácticos</strong></td><td>Todos</td><td>«Me pasa esto, ¿qué hago?»: 18 situaciones con los pasos exactos.</td></tr>
+      <tr><td><strong>D · Pantallas de control</strong></td><td>Comerciales y responsables</td><td>Colas y listas que dicen qué necesita atención.</td></tr>
+      <tr><td><strong>E · Referencia</strong></td><td>Consulta</td><td>Menús, campos por pantalla, estados, correos y avisos automáticos, cortafuegos, límites.</td></tr>
+    </table>
+    <div class="flow">
+      <span>1 · Entra la petición</span><span>2 · Buscar restaurantes</span><span>3 · Pedir presupuestos</span>
+      <span>4 · Propuesta a la agencia</span><span>5 · Firma y expediente</span><span>6 · Cambios y cancelaciones</span>
+      <span>7 · Antes del servicio</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <h3>Reglas que se cumplen en todo el flujo</h3>
+    <ul>
+      <li><strong>La IA propone, una persona decide.</strong> Lee correos, completa datos y propone importes, pero nada se da por bueno ni sale al exterior sin que alguien lo confirme.</li>
+      <li><strong>No se bloquea una petición por faltar un dato:</strong> se pide solo lo que falta.</li>
+      <li><strong>Cada uno ve lo suyo:</strong> el restaurante ve su precio, la agencia el suyo (con margen incluido) y el bono no lleva precios.</li>
+      <li><strong>Precios siempre con IVA incluido.</strong></li>
+      <li><strong>La agencia no interviene</strong> en lo que es un asunto entre Restagrup y el restaurante (avisos, cambio de restaurante).</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3>Qué está ya en producción</h3>
+    <p>Las funciones marcadas con <span class="dev">Solo en desarrollo</span> existen en el entorno de pruebas, pero todavía no están desplegadas en producción. El resto ya funciona en producción.</p>
+  </div>
+
+  <div class="step">
+    <h3>Entrar en Odoo</h3>
+    <p class="where">Panel de aplicaciones → <b>Restagrup</b></p>
+    <p>Inicia sesión. En el panel aparece <strong>Restagrup</strong> junto al resto de módulos (CRM, Ventas, Contactos…). Su menú superior da acceso a todo lo que se describe aquí.</p>
+    <img src="capturas/s30-01-home-apps.jpg" loading="lazy">
+  </div>
+</div>
+
+<div class="part">
+  <h2 id="s2" class="part-title">Parte A — Configuración inicial (administrador)</h2>
+  <p class="part-desc">Se hace una vez, antes de que el equipo empiece a trabajar. Con el modo desarrollador activado (Ajustes → Herramientas para desarrolladores) se ven los menús técnicos.</p>
+
+  <div class="step long">
+    <h3>A1. Ajustes del módulo</h3>
+    <p class="where">Ajustes → <b>Restagrup</b></p>
+    <table>
+      <tr><th>Ajuste</th><th>Para qué sirve</th></tr>
+      <tr><td>Google Places API Key</td><td>Permite que el buscador traiga restaurantes nuevos por ciudad. Una vez guardada se muestra oculta.</td></tr>
+      <tr><td>Orden de proveedores IA · Groq API Key · Gemini API Key</td><td>Qué IA se usa (por defecto <code>groq,gemini</code>) y sus claves. Para leer correos, clasificarlos y proponer importes. Sin claves, todo funciona a mano.</td></tr>
+      <tr><td>Margen por defecto (%)</td><td>Lo que Restagrup suma al precio del restaurante (20 % por defecto). Con 0, el presupuesto sale a coste. Se aplica al crear el presupuesto de venta y queda congelado en cada línea.</td></tr>
+      <tr><td>Modo de envíos automáticos</td><td><em>Con aprobación</em> (por defecto): los correos que genera el sistema esperan en «Pendientes de aprobar». <em>Automático</em>: salen solos.</td></tr>
+      <tr><td>Clasificación de correos entrantes</td><td>Activada: la IA clasifica cada correo del buzón central antes de crear nada (B1). Desactivada: todo correo crea un lead.</td></tr>
+      <tr><td>Remitente de los envíos del sistema</td><td>Desde qué dirección salen los correos que genera el sistema. Vacío = correo del usuario.</td></tr>
+      <tr><td>Usuario de alertas IA</td><td>Quién recibe la actividad cuando la IA falla, detecta una incidencia o el grupo no tiene responsable.</td></tr>
+      <tr><td>Texto del recordatorio de presupuesto</td><td>Mensaje a un restaurante que no responde pasados 3 días. Vacío = texto por defecto.</td></tr>
+      <tr><td>Días antes del servicio para reclamar · Texto del recordatorio a la agencia</td><td>Cuándo (14 por defecto) y con qué texto se reclama a la agencia que no responde al presupuesto.</td></tr>
+      <tr><td>Cambio de comensales que pide confirmación (%)</td><td>Por encima de este cambio el restaurante tiene que volver a confirmar (20 por defecto). Fecha y hora siempre piden confirmación.</td></tr>
+      <tr><td>Días antes del servicio para avisar de datos pendientes <span class="dev">Solo en desarrollo</span></td><td>Cuándo se avisa internamente de lo que falta por cerrar (7 por defecto).</td></tr>
+    </table>
+    <img src="capturas/o14-ajustes-restagrup-1.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>A2. Correo saliente y entrante</h3>
+    <p class="where">Ajustes → <b>Técnico → Correo saliente</b> y <b>Correo entrante</b></p>
+    <p>Sin esto no sale ni entra ningún correo real.</p>
+    <ul>
+      <li><strong>Servidor saliente (SMTP):</strong> host, puerto, cifrado, usuario y contraseña de la cuenta de envío. Pulsa <em>Probar la conexión</em> y envía un correo de prueba a una dirección propia. En <strong>Parámetros del sistema</strong> fija <code>mail.catchall.domain</code> y <code>mail.default.from</code>. Configura SPF, DKIM y DMARC del dominio para que no caiga en spam.</li>
+      <li><strong>Buzón de peticiones</strong> (IMAP, «Crear un nuevo registro» = <em>Lead/Oportunidad</em>): recibe los correos de las agencias.</li>
+      <li><strong>Buzón de respuestas</strong> (IMAP, «Crear un nuevo registro» = <em>Resultado del buscador de restaurantes</em>): recibe las respuestas de los restaurantes, que se enlazan solas a su línea. Es también el remitente de los correos del sistema.</li>
+    </ul>
+    <img src="capturas/s30-25-config-correo-entrante.jpg" loading="lazy">
+    <div class="note">No hay que mezclar los dos buzones. Todo el correo saliente va en español. La captura usa un buzón de pruebas local; en producción se configura igual, apuntando al buzón real.</div>
+  </div>
+
+  <div class="step">
+    <h3>A3. Confirmación online: firma sí, pago no</h3>
+    <p class="where">Ajustes → <b>Ventas → Presupuestos y pedidos</b></p>
+    <p>Deja activada <strong>«Firma en línea»</strong> y desactivado <strong>«Pago en línea»</strong>. Así la agencia acepta el presupuesto desde el enlace firmando, sin que se le pida pagar. Odoo trae las dos activadas por defecto. Comprueba también que la URL base sea la de producción: los enlaces de firma y de comparativa se construyen con ella.</p>
+    <img src="capturas/s30-28-ajustes-ventas-confirmacion-online.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>A4. Compañía y usuarios</h3>
+    <p class="where">Ajustes → <b>Compañías</b> y <b>Usuarios y compañías → Usuarios</b></p>
+    <p>
+      En la compañía rellena nombre, CIF/NIF, dirección, email, teléfono, web, logo y <strong>cuenta bancaria</strong> (sale en las confirmaciones a la agencia para el cobro).
+      Da de alta a cada comercial con su <strong>email real</strong> (los correos salen con el email del usuario) y permisos de Ventas → Usuario; no hacen falta permisos de Compras, las hojas de servicio las genera el sistema.
+      Asigna el impuesto <em>«incluido en el precio»</em> para que todos los importes sean con IVA incluido.
+    </p>
+  </div>
+
+  <div class="step">
+    <h3>A5. Listas ampliables: tipos de evento, motivos de cancelación y plantillas de aviso</h3>
+    <p class="where">Restagrup → <b>Tipos de evento</b> · <b>Motivos de cancelación</b> · <b>Plantillas de aviso</b></p>
+    <ul>
+      <li><strong>Tipos de evento</strong> (Nuevo): vienen Desayuno, Aperitivo, Comida, Cena, Coffee break y Otro.</li>
+      <li><strong>Motivos de cancelación</strong> (Nuevo): vienen «El restaurante no puede», «Sustituido por otro más barato», «Sustituido por otro mejor» y «Otro».</li>
+      <li><strong>Plantillas de aviso</strong> (Nuevo): vienen «Cambio de comensales», «Cambio de fecha u hora», «Aviso general» y «Cancelación de servicio». Admiten las variables <code>{restaurante}</code> <code>{grupo}</code> <code>{evento}</code> <code>{fecha}</code> <code>{comensales}</code>.</li>
+    </ul>
+    <img src="capturas/o01-11-plantillas-aviso.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>A6. Alta de restaurantes y de sus menús</h3>
+    <p class="where">Restagrup → <b>Restaurantes</b> y <b>Menús</b></p>
+    <p>
+      Un restaurante es un contacto marcado <strong>«Es restaurante»</strong>. Su ficha se rellena en la pestaña <strong>Restaurante</strong> (ver E2): datos generales, aptitud, <strong>Datos de grupo</strong> y margen propio.
+      Los restaurantes que encuentra Google se pueden guardar desde la tarjeta con <strong>Añadir como contacto</strong>.
+    </p>
+    <p>
+      Los <strong>menús</strong> se cargan en la pestaña <strong>Menús</strong> del restaurante o desde el menú <strong>Restagrup → Menús</strong> (filtros por población y temporada).
+      Cada menú lleva tipo (Almuerzo, Buffet, Cena, Desayuno, Picnic, Show, Sin definir), temporada, mínimo y capacidad de comensales, bebidas incluidas, el <strong>precio de coste</strong>
+      (lo que cobra el restaurante), el <strong>precio de venta</strong> (con el margen, editable) y el <strong>% de beneficio</strong>. El contenido se describe en <em>Descripción</em> (texto libre) y/o en <em>Platos</em>
+      (con tipo — entrante, principal, postre, bebida, otro — y alérgenos). La pestaña <em>Texto para propuesta</em> es lo que ve la agencia. Se carga siempre el precio <strong>del restaurante</strong>.
+    </p>
+    <img src="capturas/o14-menu-restaurante.jpg" loading="lazy">
+    <div class="note">La pestaña «Menús de producto (avanzado)» de la ficha es solo para administradores; el catálogo que se usa en el día a día es el de la pestaña «Menús».</div>
+  </div>
+
+  <div class="step">
+    <h3>A7. Baremos de precio estimado <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Restagrup → <b>Baremos de precio estimado</b></p>
+    <p>
+      Cuando la agencia no da presupuesto, el evento muestra un precio por persona «Estimado» tomado de estos baremos. Cada baremo tiene tipo de evento, <strong>público</strong> (adultos, estudiantes, deportistas),
+      <strong>día</strong> (cualquier día, entre semana, fin de semana), <strong>ciudad</strong> (opcional) y precio por persona con IVA. Una ciudad concreta tiene preferencia sobre el baremo general. Son orientativos: edítalos,
+      archívalos o añade nuevos.
+    </p>
+    <img src="capturas/o14-baremos.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>A8. Cortafuegos <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Restagrup → <b>Cortafuegos</b></p>
+    <p>
+      Cada fila es una comprobación que hace Odoo antes de un paso importante (la lista completa está en E5). Para cada una decides si está <strong>activa</strong> y qué pasa si falla:
+      <strong>Avisar y consultar</strong> (muestra el aviso y permite «Continuar de todos modos») o <strong>Impedir</strong>. Dos son <strong>puntos de revisión</strong> y nunca bloquean (B4 y 6.6).
+      Recomendación: empezar con todos activos y quitarlos uno a uno según se gane confianza.
+    </p>
+    <img src="capturas/o14-cortafuegos.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>A9. Plazos y textos de pago <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Ajustes → <b>Restagrup</b> (final de la página)</p>
+    <table>
+      <tr><th>Ajuste</th><th>Efecto</th></tr>
+      <tr><td>Pedir el pago (días antes del servicio)</td><td>Fecha en que se pide el pago a la agencia (7 por defecto).</td></tr>
+      <tr><td>Avisar si no hay pago (horas antes)</td><td>Fecha del aviso urgente si sigue sin pago (72 h).</td></tr>
+      <tr><td>Pagar a los restaurantes (horas antes)</td><td>Fecha límite para pagar a los restaurantes (48 h).</td></tr>
+      <tr><td>Comensales finales (horas laborables antes)</td><td>Cuándo hay que tener el número definitivo (48 h).</td></tr>
+      <tr><td>Facturar (días máx. tras el último servicio)</td><td>Fecha límite para facturar (7 días).</td></tr>
+      <tr><td>Texto: pedir el pago · Texto: recordatorio urgente</td><td>Mensajes que se copian a cada presupuesto y se pueden editar allí.</td></tr>
+    </table>
+    <p>Odoo calcula las fechas y avisa; <strong>los pagos los gestionáis vosotros</strong>, Odoo no cobra.</p>
+    <img src="capturas/o14-ajustes-restagrup-2.jpg" loading="lazy">
+  </div>
+</div>
+
+<div class="part">
+  <h2 id="s3" class="part-title">Parte B — El día a día, fase por fase</h2>
+  <p class="part-desc">
+    El grupo avanza por <strong>Petición (PET) → Presupuesto (PRE) → Expediente (EXP) → Cerrado</strong>. <span class="dev">Solo en desarrollo</span> las listas por fase
+    (Peticiones, Presupuestos, Expedientes, Terminados) y la numeración. En producción el grupo es una oportunidad de CRM con su pipeline.
+  </p>
+
+  <h3 id="s4" class="phase first">1 · Entra la petición</h3>
+
+  <div class="step">
+    <h3>1.1 Llega el correo de la agencia</h3>
+    <p class="where">Restagrup → <b>Peticiones</b> (o CRM)</p>
+    <p>
+      Con la clasificación activada, la IA lee cada correo del buzón central <strong>antes</strong> de crear nada y lo clasifica como: <em>petición nueva</em>, <em>cambio de un grupo</em>,
+      <em>respuesta de agencia</em>, <em>factura</em>, <em>incidencia</em> u <em>otro</em>. <strong>Solo las peticiones nuevas crean un lead</strong> (y ante la duda, se trata como petición nueva).
+      Los cambios y respuestas se enlazan al grupo que corresponde (6.1); lo demás va a <strong>Correos por revisar</strong> (D4). Las respuestas de restaurantes a un hilo existente siguen su camino y no se clasifican.
+    </p>
+  </div>
+
+  <div class="step long">
+    <h3>1.2 Revisar los datos que extrajo la IA</h3>
+    <p class="where">Lead → pestaña <b>Datos IA</b></p>
+    <p>
+      Muestra ciudad, nº de comensales, fecha de servicio y tipo de grupo, junto al estado de la extracción y el proveedor de IA usado. <strong>Revísalos</strong> antes de seguir: si la IA no está segura de un dato,
+      lo deja vacío para que lo rellenes tú, nunca se lo inventa. Los datos pueden corregirse a mano. En el lead también ves el número de documento, la agencia, la fecha y población del primer servicio y las <strong>peticiones de datos enviadas</strong>.
+    </p>
+    <img src="capturas/s30-03-lead-datos-ia.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>1.3 Varios eventos en un mismo grupo</h3>
+    <p class="where">Lead → pestaña <b>Eventos</b></p>
+    <p>
+      Una agencia puede pedir en un solo correo varias comidas o cenas en distintas ciudades y fechas. La IA propone <strong>un evento por cada uno</strong> (ciudad, fecha, tipo, público, comensales, notas) como
+      <strong>borrador</strong>: una persona los revisa. Hasta 20 por correo; un correo con un solo lugar crea un solo evento. Puedes añadir o corregir a mano con «Añadir una línea». Cada evento tiene su botón <strong>Buscar</strong>
+      y arriba hay <strong>«Buscar para todos los eventos»</strong>. La tabla muestra por evento el restaurante elegido, el importe, el presupuesto de venta y el estado de la hoja de servicio.
+    </p>
+    <img src="capturas/o01-03-lead-pestana-eventos.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>1.4 Si la petición llega incompleta</h3>
+    <p>
+      Odoo prepara un correo a la agencia pidiendo <strong>solo lo que falta</strong> (fecha, ciudad, comensales). Sale por la cola de aprobación (D1) y por el mismo hilo de la petición. Cuando la agencia contesta, la IA
+      <strong>rellena el lead sin pisar</strong> lo que ya estaba. Se piden datos como máximo <strong>dos veces</strong>; después, una persona se encarga. Si la petición ya está completa, nadie tiene que revisarla.
+    </p>
+  </div>
+
+  <div class="step">
+    <h3>1.5 Precio estimado si no hay presupuesto <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Lead → pestaña <b>Eventos</b> → columnas <b>Precio/persona</b> y <b>Estimado</b></p>
+    <p>
+      Si la agencia no indica presupuesto, el evento muestra un precio por persona <strong>«Estimado»</strong> (por ejemplo 16 € para una comida de adultos entre semana) sacado de los baremos (A7). No bloquea la petición;
+      cámbialo a mano cuando se sepa el real (deja de estar marcado como estimado). Si la fecha llega después, el estimado se calcula entonces.
+    </p>
+    <img src="capturas/demo-04-precio-estimado.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>1.6 Pasar de fase y cortafuegos <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Lead → botones <b>Pasar a presupuesto</b> · <b>Pasar a expediente</b> · <b>Cerrar expediente</b></p>
+    <p>
+      Pasar de fase manualmente dispara las comprobaciones del cortafuegos (E5): por ejemplo, para pasar a Presupuesto la agencia debe tener contacto, cada servicio ciudad, fecha y comensales y debe haber un restaurante que ofrecer.
+      Si algo falla, una ventana lo explica; según el modo puedes <strong>Continuar de todos modos</strong> o <strong>Volver a revisar</strong>. El grupo también avanza solo: al firmar la agencia pasa a Expediente (5.1).
+    </p>
+  </div>
+
+  <h3 id="s5" class="phase">2 · Buscar restaurantes</h3>
+
+  <div class="step long">
+    <h3>2.1 Lanzar la búsqueda</h3>
+    <p class="where">Lead o evento → botón <b>Buscar</b> (o <b>Buscar para todos los eventos</b>)</p>
+    <p>
+      Campos: ciudad, calle y código postal (afinan la geolocalización), aforo mínimo, parking de autobús, tipo de cocina, precio máximo (€ a €€€€), notas, y el <strong>tipo de local</strong> a buscar:
+      restaurantes, bares/tascas, cafeterías y comida rápida (cada tipo marcado lanza su propia búsqueda y se deduplica). El buscador combina los restaurantes ya guardados en Odoo con resultados en vivo de Google Places.
+      Un grupo puede tener una búsqueda por evento; el nombre indica ciudad, comensales, tipo y fecha, por ejemplo <code>Marbella · 40 pax · Comida · 14/11</code>.
+    </p>
+    <img src="capturas/s30-04-wizard-buscar-restaurantes-form.jpg" loading="lazy">
+    <div class="note">Google no filtra por tipo de cocina: descarta a mano los bares y pizzerías que no encajen.</div>
+  </div>
+
+  <div class="step long">
+    <h3>2.2 Leer las tarjetas y ordenar</h3>
+    <p class="where">Búsqueda → pestaña <b>Resultados</b></p>
+    <p>
+      Cada tarjeta muestra: valoración de Google, tipo de cocina, nivel de precio, aforo, parking de autobús y aptitud (corporativo / escolar / familiar); botones <strong>Maps</strong>, teléfono y <strong>Email</strong>; notas internas;
+      y avisos: <em>«Aforo 25 &lt; 40 pax»</em>, <em>«Cierra los martes (evento en ese día)»</em>, <em>«✓ Ya trabajado»</em> (ya hubo un servicio real con él), <em>«Ficha incompleta · faltan…»</em> y <em>«⚠ N días sin respuesta»</em>.
+      Cada tarjeta lleva su <strong>etiqueta de estado</strong> (ver E3). El desplegable <strong>Ordenar por</strong> + <strong>Aplicar</strong> reordena: por defecto, mejor valorados, precio más barato o más caro, mayor aforo, nombre A-Z.
+      La barra de progreso de arriba (Buscando → Presupuestos pedidos → Presupuestos recibidos → Elegido) se calcula sola; al crear el presupuesto de venta llega a «Presupuesto de venta creado».
+    </p>
+    <img src="capturas/s30-05-resultados-busqueda-pipeline.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>2.3 Marcar candidatos y valorar</h3>
+    <p class="where">Tarjeta → <b>Interesado</b> · <b>Descartar</b> · 👍 ➖ 👎 · <b>Añadir como contacto</b></p>
+    <ul>
+      <li><strong>Interesado</strong> marca el candidato como posible; <strong>Descartar</strong> lo aparta de la lista de candidatos.</li>
+      <li><strong>👍 Nos gustó · ➖ Neutral · 👎 No repetir</strong> guardan una valoración interna <strong>en la ficha del restaurante</strong>, que se conserva para futuras búsquedas.</li>
+      <li><strong>Añadir como contacto</strong> guarda en Odoo un restaurante que solo estaba en Google.</li>
+    </ul>
+    <img src="capturas/s30-12-valoracion-ya-trabajado.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>2.4 Ver el mapa</h3>
+    <p class="where">Búsqueda → botón <b>Ver en mapa</b></p>
+    <p>Abre un mapa con <strong>todos</strong> los resultados que tengan coordenadas. Cada marcador abre la misma tarjeta con los mismos botones (pedir presupuesto, elegir…) y su color indica el estado: naranja/rojo pendiente, verde el elegido.</p>
+    <img src="capturas/s30-07-mapa-popup-interactivo.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>2.5 Completar la ficha de un restaurante</h3>
+    <p class="where">Tarjeta → <b>Pedir datos que faltan</b> · Restaurantes → ficha → pestaña <b>Restaurante</b></p>
+    <p>
+      El bloque <strong>Datos de grupo</strong> reúne gratuidades, responsable de grupos, móvil del responsable, canal preferido, día de cierre, idioma, aforo, parking y <strong>cuenta bancaria</strong>. Si falta alguno, la ficha muestra
+      <strong>«Ficha incompleta · faltan …»</strong>. <strong>Pedir datos que faltan</strong> manda al restaurante un correo (por la cola de aprobación) con solo lo que no está. Cuando contesta, la IA <strong>propone</strong> los datos:
+      la tarjeta muestra «🤖 Datos propuestos por IA, sin confirmar» con <strong>Aplicar</strong> y <strong>Descartar</strong>; nunca se escriben solos. Un restaurante nuevo sin cuenta bancaria también la recibe en esa petición.
+    </p>
+    <img src="capturas/o14-rest-ficha-datos-grupo.jpg" loading="lazy">
+  </div>
+
+  <h3 id="s6" class="phase">3 · Pedir presupuestos a los restaurantes</h3>
+
+  <div class="step">
+    <h3>3.1 Pedir presupuesto</h3>
+    <p class="where">Tarjeta → <b>Pedir presupuesto</b></p>
+    <p>
+      Odoo manda un correo al restaurante con los datos del grupo, con un identificador de seguimiento propio, y lo registra en el historial de la línea. La tarjeta pasa a <strong>Solicitado</strong>.
+      Si el resultado no tiene email, Odoo avisa («Este resultado no tiene email de contacto»): usa <strong>Añadir como contacto</strong> o edita su ficha con el email antes de pedir presupuesto. Si prefieres llamar, registra la respuesta a mano (3.3).
+    </p>
+  </div>
+
+  <div class="step">
+    <h3>3.2 La respuesta llega sola</h3>
+    <p class="where">Tarjeta → <b>Ver conversación</b></p>
+    <p>
+      Si el buzón de respuestas está configurado (A2), la respuesta <strong>se enlaza sola</strong> a su línea. La IA lee el importe, el menú y las notas y los <strong>propone</strong>: la tarjeta lo marca en naranja
+      <em>«propuesto por IA, sin confirmar»</em>. La respuesta se conserva como correo adjunto en la conversación.
+    </p>
+    <img src="capturas/s30-08-chatter-captura-automatica.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>3.3 Confirmar o registrar el importe</h3>
+    <p class="where">Tarjeta → <b>Confirmar presupuesto</b> · <b>Registrar presupuesto</b> · Búsqueda → pestaña <b>Presupuestos</b></p>
+    <ul>
+      <li><strong>Confirmar presupuesto</strong> (un clic) da por bueno el importe propuesto por la IA, tras leer la conversación. Cada confirmación o corrección queda en el registro de IA.</li>
+      <li><strong>Registrar presupuesto</strong> abre un diálogo para escribir importe y notas a mano (si la respuesta llegó por teléfono o WhatsApp). Pega el texto y pulsa <strong>Extraer con IA</strong> para que proponga importe y notas; revisa y pulsa <strong>Registrar</strong>.</li>
+      <li>La pestaña <strong>Presupuestos</strong> lista <strong>solo</strong> los restaurantes con presupuesto, del más barato al más caro, con el importe del restaurante, el <strong>precio al cliente</strong> (con margen), la fecha de recepción y las notas; desde ahí se puede Confirmar, Elegir o abrir la conversación.</li>
+    </ul>
+    <img src="capturas/o01-02-pestana-presupuestos.jpg" loading="lazy">
+    <img src="capturas/s30-09-extraer-ia-texto-pegado.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>3.4 Restaurantes que no responden</h3>
+    <p class="where">Tarjeta → <b>Reenviar petición</b> · Restagrup → <b>Pendientes de aprobar</b></p>
+    <p>
+      A los 3 días sin respuesta la tarjeta muestra «⚠ N días sin respuesta». Cada día Odoo prepara <strong>un solo recordatorio</strong> por petición (texto en A1), que queda en la cola de aprobación (D1).
+      El botón <strong>Reenviar petición</strong> manda la petición completa a mano y reinicia el contador.
+    </p>
+    <img src="capturas/s30-32-tarjeta-sin-respuesta.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>3.5 Elegir restaurante</h3>
+    <p class="where">Tarjeta → <b>Elegir</b> · <b>Quitar elegido</b></p>
+    <p>
+      «Elegir» pasa la búsqueda a <strong>Elegido</strong> (★ verde en el mapa) y habilita <strong>Crear presupuesto de venta</strong>. Si pulsas Elegir sobre un importe propuesto por la IA sin confirmar, se abre
+      «Registrar presupuesto y elegir» y se confirma y elige de una vez. Sin presupuesto, Elegir se bloquea con un mensaje claro. <strong>Quitar elegido</strong> deshace la elección. Solo puede haber un elegido por búsqueda.
+    </p>
+    <img src="capturas/o01-01-registrar-y-elegir.jpg" loading="lazy">
+  </div>
+
+  <h3 id="s7" class="phase">4 · Propuesta y presupuesto para la agencia</h3>
+
+  <div class="step long">
+    <h3>4.1 Enviar la comparativa a la agencia <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Búsqueda → <b>Enviar comparativa al cliente</b> · <b>Comparativa para el cliente</b> (PDF)</p>
+    <p>
+      Con varios restaurantes con presupuesto, el asistente pide <strong>Para</strong> (email de la agencia), <strong>Asunto</strong>, <strong>Mensaje</strong> y la casilla <strong>«Incluir enlace de portal»</strong>. Se envía un PDF con el menú y el
+      <strong>precio por persona</strong> de cada opción, <strong>sin totales</strong>. «Comparativa para el cliente» genera solo el PDF. Con un cliente nuevo puedes ocultar los nombres («Opción 1, 2, 3») quitando <strong>«Restaurante visible»</strong>.
+    </p>
+    <p>
+      Antes de enviar sale una ventana «Antes de continuar» con lo que va a salir y a quién (restaurantes, precios, menús, nombres visibles, enlace de portal). Una persona pulsa <strong>«Revisado: enviar»</strong> y queda una nota
+      «X ha revisado y continúa». Se puede desactivar en el cortafuegos (A8).
+    </p>
+    <img src="capturas/demo-09-revision-envio.png" loading="lazy">
+    <img src="capturas/demo-10-comparativa-cliente.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>4.2 La agencia elige desde el portal <span class="dev">Solo en desarrollo</span></h3>
+    <p>
+      El enlace de portal abre una página pública (sin usuario) con las opciones. La agencia pulsa <strong>«Elijo este»</strong>: Odoo marca ese restaurante como elegido y deja una nota en el lead («El cliente ha elegido… desde el portal»).
+      Solo vale la primera elección; si ya hay uno elegido, la página lo muestra. Tras la elección, el siguiente paso lo das tú: <strong>Crear presupuesto de venta</strong>.
+    </p>
+    <img src="capturas/demo-11-cliente-elige.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>4.3 Crear el presupuesto de venta</h3>
+    <p class="where">Búsqueda → <b>Crear presupuesto de venta</b> · <b>Ver presupuesto de venta</b></p>
+    <ul>
+      <li>Si el restaurante tiene menús, un asistente deja <strong>marcar los menús</strong> que irán al presupuesto y la cantidad de cada uno (por defecto, el aforo mínimo); cada menú es una línea, con el precio del restaurante y el del cliente a la vista. Sin menús, sale una sola línea con el importe del presupuesto.</li>
+      <li>Cada línea lleva restaurante, fecha, <strong>hora</strong>, tipo de evento y <strong>gratuidades</strong>; la casilla «Incluir en propuesta» decide si sale en el PDF de propuesta.</li>
+      <li><strong>Para el equipo:</strong> coste del restaurante, % de margen y margen en € por línea, con totales de coste y margen. El margen queda <strong>congelado</strong> por línea: si cambias el margen en Ajustes, los presupuestos ya creados no se recalculan. Un restaurante con margen propio usa el suyo.</li>
+      <li><strong>Para la agencia:</strong> solo el precio con margen incluido. El coste nunca se ve. Si activas el interruptor <strong>«Mostrar margen al cliente»</strong>, el PDF y el portal añaden bajo los totales «Incluye Gestión Restagrup (X %)».</li>
+      <li>La búsqueda pasa a «Presupuesto de venta creado» y el botón arriba cuenta <strong>«Restaurantes confirmados N/M»</strong>.</li>
+    </ul>
+    <img src="capturas/demo-12-presupuesto-venta.jpg" loading="lazy">
+    <img src="capturas/demo-13-vista-cliente-presupuesto.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>4.4 Varios eventos y presupuesto adicional</h3>
+    <p>
+      Al elegir restaurante en el siguiente evento del grupo, la línea se <strong>añade al mismo presupuesto</strong> mientras no esté firmado (borrador o enviado) y el total se acumula solo; si ya estaba enviado, queda una nota para recordar
+      que hay que volver a mandarlo. Si el presupuesto <strong>ya está confirmado</strong>, Odoo no lo toca y crea un <strong>presupuesto adicional</strong> que la agencia firma aparte, con un aviso azul («Presupuesto adicional del grupo: el primero es S…»). Cada presupuesto genera sus propias hojas de servicio; un restaurante en los dos recibe dos hojas con su fecha.
+    </p>
+    <img src="capturas/o01-05-presupuesto-acumulado.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>4.5 Imprimir la propuesta</h3>
+    <p class="where">Presupuesto → <b>Imprimir propuesta</b></p>
+    <p>Genera un PDF agrupado por restaurante, listo para mandar al cliente final, con las líneas marcadas «Incluir en propuesta». Es el informe «Propuesta de restaurantes». No muestra la nota de margen ni agrupa por evento (ver E6).</p>
+    <img src="capturas/s30-26-propuesta-agencia-pdf.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>4.6 Si la agencia no contesta</h3>
+    <p class="where">Restagrup → <b>Presupuestos sin respuesta</b></p>
+    <p>
+      Lista los presupuestos enviados sin respuesta, con la fecha de servicio, los días que faltan, el último contacto y si ya se recordó. Cuando faltan los días fijados en A1 (14 por defecto), Odoo prepara un
+      <strong>recordatorio a la agencia</strong> en la cola de aprobación (uno por presupuesto). Si la agencia avisa de que el grupo no viaja, usa <strong>Grupo no sale</strong> (caso C11).
+    </p>
+    <img src="capturas/o14-a2-presupuestos-sin-respuesta.jpg" loading="lazy">
+  </div>
+
+  <h3 id="s8" class="phase">5 · Firma y expediente</h3>
+
+  <div class="step">
+    <h3>5.1 La agencia firma</h3>
+    <p>
+      La agencia abre el enlace del correo, revisa el presupuesto y lo acepta con su firma, sin usuario en Odoo. El enlace empieza por la dirección de producción. Al firmar, el pedido se confirma, el grupo pasa a
+      <strong>Expediente</strong> <span class="dev">Solo en desarrollo</span> y se genera una <strong>hoja de servicio</strong> por cada restaurante.
+    </p>
+    <img src="capturas/s30-15-presupuesto-confirmado.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>5.2 Hojas de servicio</h3>
+    <p class="where">Presupuesto → botón <b>Hojas de servicio</b> · <b>Enviar hojas de servicio</b></p>
+    <p>
+      Cada hoja (un pedido de compra) lleva los datos del restaurante, fecha, comensales y <strong>su</strong> precio (nunca el de la agencia). <strong>Enviar hojas de servicio</strong> manda la petición formal a cada restaurante.
+      En la hoja ves la <strong>respuesta del restaurante</strong> clasificada por la IA — <em>Aceptado, Rechazado, Falta información, Incidencia grave, No está claro</em> — con un resumen. La IA solo informa: nunca cambia el estado
+      del pedido; una incidencia grave avisa a una persona. El botón del presupuesto <strong>«N/M confirmados»</strong> cuenta las hojas aceptadas (rechazado, sin información o poco claro cuentan como pendiente; las canceladas no cuentan).
+      Desde la hoja, el botón <strong>Presupuesto</strong> vuelve al presupuesto de origen. Un presupuesto puede tener varios restaurantes: cada uno genera su hoja de forma independiente.
+    </p>
+    <img src="capturas/o14-hoja-servicio.jpg" loading="lazy">
+    <img src="capturas/s30-21-lista-2-hojas-servicio.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>5.3 Gratuidades <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Presupuesto → línea → columna <b>Gratuidades</b></p>
+    <p>Guía y chófer <strong>no pagan pero cuentan como comensales</strong>: con 43 de pago y 2 gratuidades son 45 comensales. La gratuidad se aplica por línea y las confirmaciones y el bono la reflejan. Cada restaurante puede tener su política de gratuidades en la ficha.</p>
+    <img src="capturas/demo-17-pedido-gratuidades.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>5.4 Confirmaciones de reserva <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Presupuesto → <b>Confirmación agencia</b> · Hoja de servicio → <b>Confirmación restaurante</b></p>
+    <p>
+      Se confirma a la agencia <strong>solo cuando el restaurante ha confirmado por escrito</strong> (cortafuegos). La <strong>confirmación a la agencia</strong> lleva el precio de venta (43 + 2 gratuidades), las observaciones y los datos de pago
+      (cuenta de la compañía). La <strong>confirmación al restaurante</strong> lleva <em>su</em> precio, sin margen. El cortafuegos avisa si el servicio no tiene fecha y hora o el restaurante no tiene email.
+    </p>
+    <img src="capturas/demo-18-confirmacion-agencia.png" loading="lazy">
+    <img src="capturas/demo-19-confirmacion-restaurante.png" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>5.5 Pagos y bono de servicio <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Presupuesto → <b>Marcar como pagado</b> · <b>Desmarcar pago</b> · <b>Bono de agencia</b> · Restagrup → <b>Pagos pendientes</b></p>
+    <p>
+      En <strong>Plazos de pago</strong> del presupuesto se calculan las fechas: pedir el pago, aviso si no hay pago, pagar a restaurantes y facturar antes de (según A9), con los textos editables. <strong>Pagos pendientes</strong> lista los pedidos
+      confirmados sin cobrar por fecha del primer servicio. Al <strong>marcar como pagado</strong> (con fecha de pago) se habilita el <strong>bono de agencia</strong>, con el sello PAGADO y <strong>sin ningún precio</strong>; es el documento que viaja con el grupo.
+      «Desmarcar pago» lo revierte. En «Observaciones» se anota lo que debe salir en la confirmación.
+    </p>
+    <img src="capturas/o14-venta-pagada-plazos.jpg" loading="lazy">
+    <img src="capturas/o14-pagos-pendientes.jpg" loading="lazy">
+    <img src="capturas/demo-20-bono-pagado.png" loading="lazy">
+  </div>
+
+  <h3 id="s9" class="phase">6 · Cambios y cancelaciones</h3>
+
+  <div class="step">
+    <h3>6.1 La agencia cambia algo (enlace automático)</h3>
+    <p>
+      Cuando una agencia escribe para cambiar un grupo, Odoo busca a cuál se refiere, por este orden: <strong>1)</strong> la referencia del grupo; <strong>2)</strong> si el remitente solo tiene un grupo abierto, ese;
+      <strong>3)</strong> el nombre del grupo en el asunto; <strong>4)</strong> la ciudad y la fecha que lee la IA; <strong>5)</strong> si aún hay varios candidatos, la IA elige entre ellos. Si nada basta, el correo va a <strong>Correos por revisar</strong> y no se asigna a ciegas.
+      El cambio queda anotado en la conversación del lead correcto.
+    </p>
+    <div class="note">Todavía <strong>no</strong> se aplica solo al evento (por ejemplo, pasar de 35 a 42 comensales): una persona lo registra y, si hay hojas de servicio, usa «Reenviar cambios» (6.2).</div>
+  </div>
+
+  <div class="step long">
+    <h3>6.2 Reenviar cambios</h3>
+    <p class="where">Presupuesto → botón amarillo <b>Reenviar cambios</b> (hoja con «Cambios pendientes de reenviar»)</p>
+    <p>
+      Aparece cuando cambian los datos (comensales, fecha, hora, líneas) después de confirmar; no genera hojas duplicadas. El mensaje incluye un <strong>resumen de lo que ha cambiado</strong> («comensales 47 → 51») y se envía a los
+      restaurantes afectados y, desde la actualización de septiembre, <strong>también el presupuesto actualizado a la agencia</strong>; queda anotado en ambas conversaciones. Si la agencia no tiene email, los restaurantes reciben igualmente los cambios y Odoo deja una nota para contactar con la agencia a mano.
+      Antes de enviar hay una revisión (6.6).
+    </p>
+    <img src="capturas/s30-22-boton-reenviar-cambios.jpg" loading="lazy">
+    <img src="capturas/s30-24-hoja-servicio-chatter-cambio.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>6.3 Cuándo el restaurante tiene que volver a confirmar</h3>
+    <p>
+      Un cambio es <strong>significativo</strong> si cambia la <strong>fecha o la hora</strong>, o si los comensales varían más del porcentaje fijado en A1 (20 % por defecto). Entonces la hoja del restaurante vuelve a
+      <strong>«pendiente de confirmar»</strong> y el restaurante debe contestar otra vez. Un cambio pequeño de comensales se avisa sin pedir nueva confirmación.
+    </p>
+  </div>
+
+  <div class="step long">
+    <h3>6.4 Avisar a los restaurantes de un grupo</h3>
+    <p class="where">Lead → <b>Avisar a restaurantes</b> · Restagrup → <b>Avisos enviados</b></p>
+    <p>
+      El asistente lista los restaurantes del grupo (uno por evento elegido) con su evento, si tienen email y <strong>por qué hilo sale</strong> (la hoja de servicio o, si no hay, la petición de presupuesto). Marca a quién avisar, elige una
+      <strong>plantilla</strong> o escribe <strong>texto libre</strong>, y pulsa <strong>Enviar avisos</strong>. Las variables se rellenan solas para cada restaurante. <strong>La agencia no recibe nada.</strong>
+    </p>
+    <p>
+      Cada aviso queda en la pestaña <strong>Avisos</strong> del lead y en <strong>Avisos enviados</strong>, con su estado (<strong>pendiente</strong> o <strong>respondido</strong>), la fecha, el extracto de la respuesta y un resumen de la IA.
+      Una respuesta se enlaza al aviso solo si el restaurante contesta al mismo correo.
+    </p>
+    <img src="capturas/o01-12-asistente-aviso.jpg" loading="lazy">
+    <img src="capturas/o01-14-avisos-enviados.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>6.5 Cancelar o cambiar un restaurante</h3>
+    <p class="where">Búsqueda del evento → <b>Cancelar / cambiar restaurante</b></p>
+    <p>
+      Es un asunto entre Restagrup y el restaurante: la agencia no vuelve a firmar. El asistente pide <strong>Motivo</strong> y <strong>Nota</strong>, y opcionalmente un <strong>sustituto</strong> entre los restaurantes con presupuesto.
+      Por defecto el presupuesto <strong>se ajusta al precio del nuevo restaurante</strong>; con <strong>«Mantener el precio al cliente»</strong> cambian solo el coste y el margen. Con <strong>«Avisar al restaurante cancelado»</strong> eliges plantilla
+      (por defecto «Cancelación de servicio») o texto libre. El cancelado queda marcado <strong>Cancelado</strong> (con motivo, nota y fecha), su hoja de servicio pasa a cancelada y se genera la del sustituto. Todo queda anotado en la conversación de la búsqueda.
+    </p>
+    <img src="capturas/o01-15-asistente-cancelar-cambiar.jpg" loading="lazy">
+    <img src="capturas/o01-16-resultado-cancelado.jpg" loading="lazy">
+    <div class="note">Si el presupuesto ya estaba confirmado, la línea pasa al sustituto con su precio y Odoo deja una nota avisando de que <strong>la agencia no ha sido avisada</strong>: si procede, hay que hacerlo por cuenta propia.</div>
+  </div>
+
+  <div class="step long">
+    <h3>6.6 Revisión antes de escribir a un restaurante <span class="dev">Solo en desarrollo</span></h3>
+    <p>
+      En <strong>Reenviar cambios</strong>, <strong>Avisar a restaurantes</strong> y <strong>cambiar o cancelar restaurante</strong> con aviso, una ventana «Antes de continuar» enseña a quién se escribe y el texto exacto, con los datos reales del
+      grupo ya rellenados (restaurante, fecha, comensales). Si es correcto, pulsa «Revisado: enviar»; queda anotado quién lo revisó. Nunca bloquea. Se desactiva en el cortafuegos (A8).
+    </p>
+    <img src="capturas/demo-21-revision-reenvio-cambios.png" loading="lazy">
+    <img src="capturas/demo-22-revision-aviso-restaurante.png" loading="lazy">
+    <img src="capturas/demo-24-revision-cambio-restaurante.png" loading="lazy">
+  </div>
+
+  <h3 id="s10" class="phase">7 · Antes del servicio</h3>
+
+  <div class="step">
+    <h3>7.1 Datos por cerrar <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Lead → pestaña <b>Eventos</b> → columna <b>Datos por cerrar</b></p>
+    <p>
+      Cada evento lleva lo que suele faltar al acercarse el servicio: <strong>menú definitivo</strong> (cuenta si está en la línea elegida o en el presupuesto), <strong>contacto del guía</strong>, <strong>intolerancias o alergias</strong>
+      (o la casilla «Sin intolerancias») y <strong>comensales definitivos</strong>. La columna muestra lo que queda. Cuando faltan los días fijados en A1 (7 por defecto), Odoo deja un <strong>aviso interno</strong> al responsable (actividad o nota),
+      una sola vez por grupo, <strong>sin escribir a nadie de fuera</strong>. Si el grupo no tiene responsable, usa el usuario de alertas; si tampoco lo hay, deja una nota en el chatter.
+    </p>
+    <img src="capturas/demo-23-datos-por-cerrar.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>7.2 Cerrar el expediente <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Lead → <b>Cerrar expediente</b></p>
+    <p>Cuando el último servicio ha terminado y el pago está recibido, ciérralo: el grupo pasa a <strong>Terminados</strong>. El cortafuegos avisa si falta el pago o el último servicio aún no ha terminado.</p>
+  </div>
+</div>
+
+<div class="part">
+  <h2 id="s11" class="part-title">Parte C — Casos prácticos</h2>
+  <p class="part-desc">Qué hacer en cada situación. Los números remiten a los pasos de la parte B.</p>
+
+  <div class="case"><h3>C1. Grupo sencillo: un evento, restaurante y presupuesto normales</h3>
+    <p>Llega la petición (1.1) → revisa Datos IA (1.2) → Buscar (2.1) → Pedir presupuesto a 3 o 4 candidatos (3.1) → la respuesta llega sola (3.2) → Confirmar importes (3.3) → Elegir (3.5) → Crear presupuesto de venta (4.3) → enviar a la agencia → firma (5.1) → Enviar hojas de servicio (5.2).</p></div>
+
+  <div class="case"><h3>C2. Un correo con varios eventos (ciudades o fechas distintas)</h3>
+    <p>Revisa y corrige los borradores de la pestaña Eventos (1.3). Usa «Buscar para todos los eventos» o busca evento a evento. Cada evento elige su restaurante y se acumula en el mismo presupuesto (4.4).</p></div>
+
+  <div class="case"><h3>C3. La petición llega incompleta (falta fecha, ciudad o comensales)</h3>
+    <p>No hace falta hacer nada: Odoo prepara el correo a la agencia pidiendo solo lo que falta (1.4). Apruébalo en Pendientes de aprobar (D1). Cuando la agencia contesta, el lead se rellena solo. Tras dos peticiones sin éxito, lo gestiona una persona.</p></div>
+
+  <div class="case"><h3>C4. La agencia no da presupuesto</h3>
+    <p>El evento muestra un precio por persona «Estimado» según los baremos (1.5). Trabaja con él y cámbialo cuando se sepa el real. Si la agencia es de más nivel (cena de empresa, menú ejecutivo), pide el presupuesto a la agencia.</p></div>
+
+  <div class="case"><h3>C5. Un restaurante no responde</h3>
+    <p>A los 3 días la tarjeta avisa y Odoo prepara un recordatorio (3.4). Aprueba el recordatorio o pulsa «Reenviar petición». Si sigue sin responder, pídele presupuesto a otro candidato.</p></div>
+
+  <div class="case"><h3>C6. El restaurante responde por teléfono o WhatsApp</h3>
+    <p>En la tarjeta pulsa «Registrar presupuesto», escribe o pega el texto, «Extraer con IA» si quieres, revisa y «Registrar» (3.3).</p></div>
+
+  <div class="case"><h3>C7. La IA propone un importe distinto del que dijo el restaurante</h3>
+    <p>No lo confirmes. Abre «Registrar presupuesto», corrige el importe y registra: queda anotado como corregido en la actividad IA (D3).</p></div>
+
+  <div class="case"><h3>C8. Restaurante nuevo sin ficha completa o sin cuenta bancaria</h3>
+    <p>La tarjeta muestra «Ficha incompleta». Pulsa «Pedir datos que faltan», aprueba el correo, y cuando el restaurante conteste pulsa «Aplicar» en los datos propuestos por la IA (2.5).</p></div>
+
+  <div class="case"><h3>C9. Cliente nuevo: no enseñar los nombres de los restaurantes</h3>
+    <p>En la búsqueda quita «Restaurante visible» y envía la comparativa (4.1): saldrán «Opción 1, 2, 3». La agencia elige con «Elijo este» y tú creas el presupuesto de venta.</p></div>
+
+  <div class="case"><h3>C10. La agencia no contesta al presupuesto</h3>
+    <p>Mira «Presupuestos sin respuesta» (4.6). A los 14 días antes del servicio Odoo prepara el recordatorio (aprobación en D1). Si responde que no viaja, ve a C11.</p></div>
+
+  <div class="case"><h3>C11. El grupo no sale</h3>
+    <p>En el presupuesto pulsa «Grupo no sale» (solo si está en borrador o enviado). Cancela el presupuesto, marca el lead como perdido, da por canceladas las peticiones abiertas a restaurantes y deja en la cola los avisos de cancelación. Si el presupuesto ya estaba confirmado, usa el flujo de cancelación del restaurante (C15).</p></div>
+
+  <div class="case"><h3>C12. La agencia cambia el número de comensales</h3>
+    <p>Actualiza el evento y el presupuesto. Pulsa «Reenviar cambios» (6.2): el resumen «47 → 51» va a los restaurantes y a la agencia. Si el cambio supera el porcentaje de A1, el restaurante debe volver a confirmar (6.3).</p></div>
+
+  <div class="case"><h3>C13. La agencia cambia la fecha o la hora</h3>
+    <p>Actualiza fecha u hora en la línea. «Reenviar cambios»; la hoja vuelve a «pendiente de confirmar» siempre (6.3). Revisa el texto en la ventana «Antes de continuar» (6.6).</p></div>
+
+  <div class="case"><h3>C14. Avisar a todos los restaurantes de algo (sin tocar el presupuesto)</h3>
+    <p>En el lead, «Avisar a restaurantes» con la plantilla que corresponda (6.4). Sigue las respuestas en Avisos enviados.</p></div>
+
+  <div class="case"><h3>C15. Un restaurante cancela y hay que sustituirlo</h3>
+    <p>«Cancelar / cambiar restaurante» en la búsqueda del evento: motivo, sustituto con presupuesto, precio nuevo o mantener el del cliente, y aviso al cancelado (6.5). La agencia no vuelve a firmar; si procede, avísala tú.</p></div>
+
+  <div class="case"><h3>C16. La agencia añade un evento a un grupo ya firmado</h3>
+    <p>Añade el evento, busca y elige restaurante, y «Crear presupuesto de venta»: Odoo crea un presupuesto adicional que la agencia firma aparte (4.4).</p></div>
+
+  <div class="case"><h3>C17. Llega un correo que no es una petición (factura, incidencia, spam)</h3>
+    <p>Aparece en «Correos por revisar» con su categoría y un resumen de la IA (D4). Léelo y pulsa «Marcar como revisado»; si en realidad es una petición, «Crear lead».</p></div>
+
+  <div class="case"><h3>C18. Se acerca el servicio y faltan datos</h3>
+    <p>Recibes un aviso interno (7.1). Completa menú definitivo, intolerancias, contacto del guía y comensales definitivos en el evento. Cuando está todo y llegó el pago, marca como pagado, imprime el bono (5.5) y, terminado el servicio, cierra el expediente (7.2).</p></div>
+</div>
+
+<div class="part">
+  <h2 id="s12" class="part-title">Parte D — Pantallas de control</h2>
+  <p class="part-desc">Colas y listas que dicen qué necesita atención.</p>
+
+  <div class="step">
+    <h3>D1. Pendientes de aprobar</h3>
+    <p class="where">Restagrup → <b>Pendientes de aprobar</b></p>
+    <p>
+      Con el modo «Con aprobación», los correos que genera el sistema <strong>no salen solos</strong>. Cada uno tiene un tipo — <em>Recordatorio a restaurante, Petición de datos de ficha, Petición de datos a la agencia, Recordatorio a la agencia, Aviso de grupo cancelado</em> —,
+      un motivo y estado (Pendiente, Enviado, Descartado, Error). Abre uno: el mensaje es <strong>editable antes de aprobar</strong>. Pulsa <strong>Aprobar y enviar</strong> o <strong>Descartar</strong>. Si al aprobar ya no procede (por ejemplo, el restaurante ya respondió o ya se le recordó), Odoo no lo envía: pasa a Descartado con el aviso «Ya no procede: la petición ha cambiado». Pasar el ajuste a <em>Automático</em> los envía solos.
+    </p>
+    <img src="capturas/o14-a1-pendientes-aprobar.jpg" loading="lazy">
+    <img src="capturas/o14-pendiente-detalle.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>D2. Clientes</h3>
+    <p class="where">Restagrup → <b>Clientes</b></p>
+    <p>Un grupo por fila: eventos, restaurantes elegidos (con su evento), total presupuestado (sin IVA), hojas de servicio confirmadas N/M y avisos sin respuesta. Al abrir una fila se llega al lead con sus pestañas Eventos y Avisos.</p>
+    <img src="capturas/o01-10-menu-clientes.jpg" loading="lazy">
+  </div>
+
+  <div class="step long">
+    <h3>D3. Actividad IA</h3>
+    <p class="where">Restagrup → <b>Actividad IA</b> → <b>Panel</b> y <b>Registro</b></p>
+    <p>
+      El <strong>Panel</strong> resume los últimos 7 días (correos procesados, propuestas revisadas, % confirmadas sin corregir, errores) y los correos pendientes de aprobar ahora, con botones: <em>Ver toda la actividad, Ver propuestas revisadas, Ver errores, Ver pendientes de aprobar</em>.
+      El <strong>Registro</strong> guarda cada propuesta de la IA: acción, tipo, estado (pendiente de revisar, confirmado, corregido, descartado, automático sin revisión, error), proveedor y modelo, texto leído, propuesta, quién la revisó y cuándo; <strong>Abrir el origen</strong> lleva al lead, búsqueda o correo.
+    </p>
+    <p>
+      Las propuestas pendientes llegan al comercial como <strong>actividad</strong> (contador del reloj) y como <strong>aviso emergente</strong> que se queda hasta atenderlo. Si la IA falla o detecta una incidencia en un correo, se crea una actividad para el responsable del grupo o, si no tiene, para el
+      <strong>usuario de alertas</strong>.
+    </p>
+    <img src="capturas/o14-a4-panel-actividad-ia.jpg" loading="lazy">
+  </div>
+
+  <div class="step">
+    <h3>D4. Correos por revisar</h3>
+    <p class="where">Restagrup → <b>Correos por revisar</b></p>
+    <p>
+      Los correos que la IA no clasificó como petición nueva y no pudo enlazar a un grupo: <em>Cambio de un grupo, Respuesta de agencia, Factura, Incidencia, Otro</em>, con remitente, asunto y un resumen de la IA. Decide qué hacer con cada uno:
+      <strong>Marcar como revisado</strong> o, si en realidad es una petición, <strong>Crear lead</strong>. No crean nada por sí solos.
+    </p>
+  </div>
+
+  <div class="step">
+    <h3>D5. Listas por fase y por documento <span class="dev">Solo en desarrollo</span></h3>
+    <p class="where">Restagrup → <b>Peticiones</b> · <b>Presupuestos</b> · <b>Expedientes</b> · <b>Terminados</b> · <b>Pagos pendientes</b></p>
+    <p>Cada lista muestra documento (PET/PRE/EXP + número), agencia, referencia del grupo, nº de servicios, fecha y población del primer servicio, restaurante, comensales, comercial y estado. Pagos pendientes añade las fechas de pago.</p>
+    <img src="capturas/demo-16-expedientes.jpg" loading="lazy">
+  </div>
+</div>
+
+<div class="part">
+  <h2 id="s13" class="part-title">Parte E — Referencia</h2>
+
+  <div class="step long">
+    <h3>E1. Menús del módulo</h3>
+    <table>
+      <tr><th>Menú (Restagrup →)</th><th>Para qué</th></tr>
+      <tr><td>Restaurantes · Buscar restaurantes · Menús</td><td>Fichas, búsquedas y menús por restaurante</td></tr>
+      <tr><td>Peticiones · Presupuestos · Expedientes · Terminados · Pagos pendientes <span class="dev">Solo en desarrollo</span></td><td>Listas por fase del grupo y cobros</td></tr>
+      <tr><td>Clientes</td><td>Resumen de cada grupo</td></tr>
+      <tr><td>Pendientes de aprobar · Presupuestos sin respuesta · Correos por revisar · Actividad IA (Panel, Registro)</td><td>Control (parte D)</td></tr>
+      <tr><td>Avisos enviados · Plantillas de aviso</td><td>Avisos a restaurantes</td></tr>
+      <tr><td>Tipos de evento · Motivos de cancelación</td><td>Listas ampliables</td></tr>
+      <tr><td>Baremos de precio estimado · Cortafuegos <span class="dev">Solo en desarrollo</span></td><td>Configuración de negocio</td></tr>
+    </table>
+  </div>
+
+  <div class="step long">
+    <h3>E2. Campos de la ficha del restaurante</h3>
+    <table>
+      <tr><th>Bloque</th><th>Campos</th></tr>
+      <tr><td>General</td><td>Es restaurante · Ya hemos trabajado con este restaurante (calculado desde hojas de servicio reales) · Valoración interna (Nos gustó / Neutral / No repetir) · Notas internas · Tipo de cocina · Nivel de precio · Apto corporativo / escolar / familiar · Contacto directo · Datos de Google (Place ID, rating, nº de reseñas)</td></tr>
+      <tr><td>Datos de grupo</td><td>Aforo (grupos) · Parking de autobús · Día de cierre · Idioma · Gratuidades · Responsable de grupos · Móvil del responsable · Canal preferido (Email / WhatsApp) · Cuenta bancaria · «Ficha incompleta · faltan…»</td></tr>
+      <tr><td>Margen</td><td>Margen propio (casilla) y Margen de beneficio (%)</td></tr>
+      <tr><td>Menús</td><td>Menús del restaurante y su número. Hojas de servicio (pedidos de compra) del restaurante.</td></tr>
+    </table>
+    <div class="note">El «Canal preferido» y el «Idioma» quedan registrados en la ficha; hoy los correos salen siempre por email y en español.</div>
+  </div>
+
+  <div class="step long">
+    <h3>E3. Estados y etiquetas</h3>
+    <table>
+      <tr><th>Dónde</th><th>Valores</th></tr>
+      <tr><td>Etiqueta de un candidato</td><td>Visto → Interesado → Solicitado → Presupuesto recibido; también Descartado y Cancelado. «Elegido» es aparte (★).</td></tr>
+      <tr><td>Barra de progreso de la búsqueda</td><td>Buscando → Presupuestos pedidos → Presupuestos recibidos → Elegido → Presupuesto de venta creado</td></tr>
+      <tr><td>Respuesta del restaurante (hoja de servicio)</td><td>Aceptado · Rechazado · Falta información · Incidencia grave · No está claro</td></tr>
+      <tr><td>Aviso a restaurante</td><td>Pendiente · Respondido</td></tr>
+      <tr><td>Correo pendiente de aprobar</td><td>Pendiente · Enviado · Descartado · Error</td></tr>
+      <tr><td>Registro de IA — estado</td><td>Pendiente de revisar · Confirmado · Corregido · Descartado · Automático (sin revisión) · Error</td></tr>
+      <tr><td>Registro de IA — tipo</td><td>Extracción de datos del lead · Importe de un presupuesto · Datos de la ficha de un restaurante · Clasificación de un correo · Enlace de un correo a un grupo · Datos que aporta la agencia · Respuesta a una hoja de servicio</td></tr>
+      <tr><td>Fase del grupo <span class="dev">Solo en desarrollo</span></td><td>Petición (PET) → Presupuesto (PRE) → Expediente (EXP) → Cerrado</td></tr>
+      <tr><td>Categoría de un correo entrante</td><td>Petición nueva · Cambio de un grupo · Respuesta de agencia · Factura · Incidencia · Otro</td></tr>
+    </table>
+  </div>
+
+  <div class="step long">
+    <h3>E4. Correos y avisos automáticos</h3>
+    <table>
+      <tr><th>Qué</th><th>Cuándo</th><th>A quién</th><th>Pasa por aprobación</th></tr>
+      <tr><td>Petición de presupuesto</td><td>Al pulsar «Pedir presupuesto»</td><td>Restaurante</td><td>No (acción manual)</td></tr>
+      <tr><td>Recordatorio de presupuesto sin respuesta</td><td>Diario; a los 3 días, una vez por petición</td><td>Restaurante</td><td>Sí</td></tr>
+      <tr><td>Petición de datos de ficha</td><td>Botón «Pedir datos que faltan»</td><td>Restaurante</td><td>Sí</td></tr>
+      <tr><td>Petición de datos a la agencia</td><td>Petición incompleta (máx. 2)</td><td>Agencia</td><td>Sí</td></tr>
+      <tr><td>Recordatorio a la agencia</td><td>Diario; faltan N días para el servicio (14)</td><td>Agencia</td><td>Sí</td></tr>
+      <tr><td>Aviso de grupo cancelado</td><td>«Grupo no sale»</td><td>Restaurantes con petición abierta</td><td>Sí</td></tr>
+      <tr><td>Aviso a restaurantes / cambio de restaurante</td><td>Asistentes manuales</td><td>Restaurantes</td><td>No; con revisión previa <span class="dev">Solo en desarrollo</span></td></tr>
+      <tr><td>Reenviar cambios</td><td>Botón manual</td><td>Restaurantes y agencia</td><td>No; con revisión previa <span class="dev">Solo en desarrollo</span></td></tr>
+      <tr><td>Aviso de datos pendientes antes del servicio <span class="dev">Solo en desarrollo</span></td><td>Diario; faltan N días (7)</td><td>Interno (responsable)</td><td>No sale nada fuera</td></tr>
+    </table>
+    <p>Las tres tareas programadas (recordatorio a restaurantes, recordatorio a agencias y aviso de datos pendientes) se ejecutan una vez al día.</p>
+  </div>
+
+  <div class="step long">
+    <h3>E5. Cortafuegos: comprobaciones <span class="dev">Solo en desarrollo</span></h3>
+    <table>
+      <tr><th>Antes de…</th><th>Qué se comprueba</th></tr>
+      <tr><td rowspan="3">Pasar a Presupuesto</td><td>La agencia tiene contacto (cliente o email)</td></tr>
+      <tr><td>Cada servicio tiene ciudad, fecha y comensales</td></tr>
+      <tr><td>Hay al menos un restaurante con presupuesto o menú que ofrecer</td></tr>
+      <tr><td rowspan="2">Pasar a Expediente</td><td>Hay restaurante elegido</td></tr>
+      <tr><td>Los servicios tienen comensales</td></tr>
+      <tr><td rowspan="2">Cerrar expediente</td><td>El pago está marcado como recibido</td></tr>
+      <tr><td>El último servicio ya ha terminado</td></tr>
+      <tr><td rowspan="3">Confirmación a la agencia</td><td>El restaurante ha confirmado por escrito</td></tr>
+      <tr><td>El restaurante tiene cuenta bancaria (prepago)</td></tr>
+      <tr><td>La compañía tiene cuenta bancaria para el cobro</td></tr>
+      <tr><td rowspan="2">Confirmación al restaurante</td><td>El servicio tiene fecha y hora</td></tr>
+      <tr><td>El restaurante tiene email</td></tr>
+      <tr><td>Enviar la propuesta a la agencia <em>(revisión)</em></td><td>Revisar restaurantes, precios y condiciones</td></tr>
+      <tr><td>Escribir al restaurante <em>(revisión)</em></td><td>Revisar a qué restaurante y con qué texto se escribe (avisos, cambios y reenvíos)</td></tr>
+    </table>
+  </div>
+
+  <div class="step long">
+    <h3>E6. Qué revisa una persona y límites conocidos</h3>
+    <ul>
+      <li><strong>Siempre una persona</strong> (con «Con aprobación»): todo correo que sale a restaurantes o agencias; los importes propuestos por la IA; los datos de ficha que lee la IA.</li>
+      <li><strong>Sin revisar:</strong> una petición completa que la IA clasifica y rellena; el enlace de un cambio cuando el grupo se identifica con seguridad.</li>
+      <li><strong>Pendiente de decidir:</strong> correos en varios idiomas, canal WhatsApp, facturación y pagos a restaurantes desde Odoo.</li>
+    </ul>
+    <p><strong>Límites conocidos</strong>, para no esperarlos:</p>
+    <ul>
+      <li>Respuestas a avisos: solo se enlazan al aviso si el restaurante contesta al <em>mismo correo</em>.</li>
+      <li>Un restaurante elegido en dos eventos del mismo presupuesto recibe un aviso por evento.</li>
+      <li>Presupuesto ya confirmado: al cancelar sin sustituto la línea queda a 0 marcada «CANCELADO» y Odoo no avisa a la agencia.</li>
+      <li>Cambio de restaurante: las líneas de menú del cancelado pasan a una sola línea al precio del sustituto; no se reconstruyen los menús.</li>
+      <li>Presupuesto creado por otro comercial: puede no verse por la regla «solo mis pedidos» y crearse uno nuevo en lugar de añadir al existente.</li>
+      <li>«Imprimir propuesta» no muestra la nota de margen ni agrupa por evento.</li>
+      <li>Los cambios de la agencia no se aplican solos al evento (6.1).</li>
+      <li>El buscador no filtra por tipo de cocina (Google no lo permite).</li>
+      <li>«Firmado» significa presupuesto en estado confirmado.</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+<script>
+const q=document.getElementById('q');
+q.addEventListener('input',()=>{const t=q.value.toLowerCase();
+document.querySelectorAll('.step,.case').forEach(e=>{e.style.display=!t||e.textContent.toLowerCase().includes(t)?'':'none'})});
+</script></body></html>
